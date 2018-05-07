@@ -11,7 +11,7 @@ router.get('/samurais', (req, res, next) => {
 router.post('/samurais', (req, res, next) => {
   // var samurai = new Samurai(req.body);
   // samurai.save();
-  Samurai.create(req.body).then((samurai) => {
+  Samurai.create(req.body).then(samurai => {
     res.send(samurai);
   }).catch(next); 
 });
@@ -24,7 +24,9 @@ router.put('/samurais/:id', (req, res, next) => {
 
 // delete a samurai from the db
 router.delete('/samurais/:id', (req, res, next) => {
-  res.send({ type: 'DELETE' });
+  Samurai.findByIdAndRemove({ _id: req.params.id }).then(samurai => {
+    res.send(samurai);
+  });
 });
 
 module.exports = router;
