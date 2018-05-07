@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const Samurai = require('../models/samurai');
 
 // get a list of samurais from the db 
 router.get('/samurais', (req, res) => {
@@ -8,12 +9,11 @@ router.get('/samurais', (req, res) => {
 
 // add a new samurai to the db
 router.post('/samurais', (req, res) => {
-  console.log(req.body);
-  res.send({ 
-    type: 'POST',
-    name: req.body.name,
-    rank: req.body.rank
-  });
+  // var samurai = new Samurai(req.body);
+  // samurai.save();
+  Samurai.create(req.body).then((samurai) => {
+    res.send(samurai);
+  }); 
 });
 
 
