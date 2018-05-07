@@ -7,3 +7,8 @@ const app = express();
 app.listen(process.env.port || 4000, () => {
   console.log('now listening for requests');
 });
+
+app.get('/api', (req, res) => {
+  console.log('GET request');
+  res.send({ name: 'Honda' });
+});
