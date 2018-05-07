@@ -4,7 +4,15 @@ const Samurai = require('../models/samurai');
 
 // get a list of samurais from the db 
 router.get('/samurais', (req, res, next) => {
-  res.send({ type: 'GET' });
+  // Samurai.find({}).then(samurai => {
+  //   res.send(samurai);
+  // });
+  Samurai.geoNear(
+    { type: 'Point', coordinates: [parseFloat(req.query.lng), parseFloat(req.query.lat)]},
+    { maxDistance: 100000, spherical: true}
+  ).then(samurais => {
+    res.send(samurais);
+  });
 });
 
 // add a new samurai to the db
