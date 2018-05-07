@@ -19,7 +19,11 @@ router.post('/samurais', (req, res, next) => {
 
 // update a samurai in the db
 router.put('/samurais/:id', (req, res, next) => {
-  res.send({ type: 'PUT' });
+  Samurai.findByIdAndUpdate({ _id: req.params.id }, req.body).then(() => {
+    Samurai.findOne({ _id: req.params.id }).then(samurai => {
+      res.send(samurai);
+    });
+  });
 });
 
 // delete a samurai from the db
